@@ -1,7 +1,7 @@
 #!/bin/bash
 #PBS -P RDS-FEI-tcar-RW
-#PBS -l select=1:ngpus=1:ncpus=1:mem=64G
-#PBS -l walltime=6:00:00
+#PBS -l select=1:ngpus=1:ncpus=1:mem=4G
+#PBS -l walltime=1:00:00
 #PBS -j oe
 
 
@@ -14,11 +14,12 @@ cd /project/RDS-FEI-tcar-RW/vaecnnAdvTraining
 module load llvm/14.0.0 python/3.7.7 magma/2.5.3 openmpi-gcc/3.1.5 cmake cuda/10.2.89
 module load binutils
 module load bazel
-virtualenv tf
+virtualenv --system-site-packages tf
 module load gcc
 source tf/bin/activate
 pip install /usr/local/tensorflow/v100/cuda10.2/tensorflow-2.5.0-cp37-cp37m-linux_x86_64.whl
-pip install /usr/local/pytorch/torch-1.1.0a0+c1643ec-cp35-cp35m-linux_x86_64.whl
+# pip install /usr/local/pytorch/torch-1.1.0a0+c1643ec-cp35-cp35m-linux_x86_64.whl
+pip install /usr/local/pytroch/torch-1.1.0a0+4f45bc7-cp36-cp36m-linux_x86_64.whl
 pip install tensorflow_probability
 export CFLAGS="$CFLAGS -D__STDC_FORMAT_MACROS=1"
 export CPPFLAGS="$CPPFLAGS -D__STDC_FORMAT_MACROS=1"
