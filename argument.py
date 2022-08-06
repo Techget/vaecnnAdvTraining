@@ -5,14 +5,14 @@ def parser():
     parser.add_argument('--todo', choices=['train', 'valid', 'test', 'visualize'], default='train',
         help='what behavior want to do: train | valid | test | visualize')
     parser.add_argument('--dataset', default='cifar-10', help='use what dataset')
-    parser.add_argument('--data_root', default='/home/yilin/Data', 
+    parser.add_argument('--data_root', default='.', 
         help='the directory to save the dataset')
     parser.add_argument('--log_root', default='log-adversarial-training', 
         help='the directory to save the logs or other imformations (e.g. images)')
     parser.add_argument('--model_root', default='checkpoint-adversarial-training', help='the directory to save the models')
     parser.add_argument('--load_checkpoint', default='./model/default/model-adversarial-training.pth')
     parser.add_argument('--affix', default='default', help='the affix for the save folder')
-    parser.add_argument('--model_name', default='VAEResNet18FirstLayerChanged')
+    parser.add_argument('--model_name', default='VAEResNet18')
 
     # parameters for generating adversarial examples
     parser.add_argument('--epsilon', '-e', type=float, default=0.0157, 
@@ -23,9 +23,9 @@ def parser():
         help='maximum iteration when generating adversarial examples')
 
     parser.add_argument('--batch_size', '-b', type=int, default=128, help='batch size')
-    parser.add_argument('--max_epoch', '-m_e', type=int, default=200, 
+    parser.add_argument('--max_epoch', '-m_e', type=int, default=500, 
         help='the maximum numbers of the model see a sample')
-    parser.add_argument('--learning_rate', '-lr', type=float, default=0.1, help='learning rate')
+    parser.add_argument('--learning_rate', '-lr', type=float, default=0.05, help='learning rate')
     parser.add_argument('--momentum', '-m', type=float, default=0.9, help='momentum for optimizer')
     parser.add_argument('--weight_decay', '-w', type=float, default=2e-4, 
         help='the parameter of l2 restriction for weights')
