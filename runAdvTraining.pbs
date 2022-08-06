@@ -36,9 +36,5 @@ pip install pandas
 # pip install pyspark
 
 # python3 setup.py install
-<<<<<<< HEAD
-python3 adversarial_training_main.py --data_root . --batch_size=128 --learning_rate=0.05
-=======
 # python3 adversarial_training_main.py --data_root . --batch_size=64 --learning_rate=0.05
 python3 adversarial_training_main.py --data_root . --batch_size=128 --learning_rate=0.05 --model_name=VAEResNet18 --model_root=checkpoint-adv-training-VAEResNet18 -e 0.0157 -p 'linf' --adv_train --affix 'linf'
->>>>>>> a3bacef (update args to test VAECNNRes18)
