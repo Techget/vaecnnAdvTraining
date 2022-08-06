@@ -1,7 +1,7 @@
 #!/bin/bash
 #PBS -P RDS-FEI-tcar-RW
-#PBS -l select=1:ngpus=1:ncpus=1:mem=4G
-#PBS -l walltime=1:00:00
+#PBS -l select=1:ngpus=1:ncpus=1:mem=64G
+#PBS -l walltime=48:00:00
 #PBS -j oe
 
 
@@ -36,4 +36,4 @@ pip install pandas
 # pip install pyspark
 
 # python3 setup.py install
-python3 adversarial_training_main.py --data_root . --batch_size=64 --learning_rate=0.05
+python3 adversarial_training_main.py --data_root . --batch_size=128 --learning_rate=0.05
