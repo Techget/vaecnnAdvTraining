@@ -109,7 +109,13 @@ class VAEResNet(nn.Module):
     def kl_loss(self, mu, log_var):
         return torch.mean(-0.5 * torch.sum(1 + log_var - mu ** 2 - log_var.exp(), dim = 1))
 
-    def forward(self, x):
+    def forward(self, x, _eval=False):
+        if _eval:
+            # switch to eval mode
+            self.eval()
+        else:
+            self.train()
+
         log_var = self.conv1_log_var(x)
         mu = self.conv1_mu(x)
         std = torch.exp(torch.mul(log_var, 0.5))
@@ -124,6 +130,9 @@ class VAEResNet(nn.Module):
         out = F.avg_pool2d(out, 4)
         out = out.view(out.size(0), -1)
         out = self.linear(out)
+
+        self.train()
+        
         return [out, self.kl_loss(mu, log_var) + kl_loss1 + kl_loss2 + kl_loss3 + kl_loss4]
 
 class BasicBlock(nn.Module):
@@ -178,22 +187,7 @@ class VAECNNFirstLayerChanged(nn.Module):
             self.in_planes = planes * block.expansion
         return nn.Sequential(*layers)
 
-    # def forward(self, x):
-    #     log_var = self.conv1_log_var(x)
-    #     mu = self.conv1_mu(x)
-    #     std = torch.exp(torch.mul(log_var, 0.5))
-    #     eps = torch.randn_like(std)
-    #     conv1 = eps * std + mu
-    #     out = F.relu(self.bn1(conv1))
 
-    #     out = self.layer1(out)
-    #     out = self.layer2(out)
-    #     out = self.layer3(out)
-    #     out = self.layer4(out)
-    #     out = F.avg_pool2d(out, 4)
-    #     out = out.view(out.size(0), -1)
-    #     out = self.linear(out)
-    #     return out, kl_loss(mu, log_var)
     def forward(self, x, _eval=False):
         if _eval:
             # switch to eval mode

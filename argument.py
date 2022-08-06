@@ -12,6 +12,7 @@ def parser():
     parser.add_argument('--model_root', default='checkpoint-adversarial-training', help='the directory to save the models')
     parser.add_argument('--load_checkpoint', default='./model/default/model-adversarial-training.pth')
     parser.add_argument('--affix', default='default', help='the affix for the save folder')
+    parser.add_argument('--model_name', default='VAEResNet18FirstLayerChanged')
 
     # parameters for generating adversarial examples
     parser.add_argument('--epsilon', '-e', type=float, default=0.0157, 

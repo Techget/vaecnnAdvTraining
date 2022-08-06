@@ -97,17 +97,6 @@ class Trainer():
 
                     logger.info(f'standard acc: {std_acc:.3f}%, robustness acc: {adv_acc:.3f}%')
 
-                    # begin_time = time()
-
-                    # if va_loader is not None:
-                    #     va_acc, va_adv_acc = self.test(model, va_loader, True)
-                    #     va_acc, va_adv_acc = va_acc * 100.0, va_adv_acc * 100.0
-
-                    #     logger.info('\n' + '='*30 + ' evaluation ' + '='*30)
-                    #     logger.info('test acc: %.3f %%, test adv acc: %.3f %%, spent: %.3f' % (
-                    #         va_acc, va_adv_acc, time() - begin_time))
-                    #     logger.info('='*28 + ' end of evaluation ' + '='*28 + '\n')
-
                     begin_time = time()
 
                 if _iter % args.n_store_image_step == 0:
@@ -190,7 +179,10 @@ def main(args):
     print_args(args, logger)
 
     # model = WideResNet(depth=34, num_classes=10, widen_factor=10, dropRate=0.0)
-    model = VAECNNFirstLayerChanged(BasicBlock, [2,2,2,2])
+    if args.model_name == 'VAEResNet18FirstLayerChanged':
+        model = VAECNNFirstLayerChanged(BasicBlock, [2,2,2,2])
+    else:
+        model = VAEResNet18()
 
     attack = FastGradientSignUntargeted(model, 
                                         args.epsilon, 
